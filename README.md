@@ -10,6 +10,7 @@ To get started with this template, follow these steps:
 - Install dependencies: npm install
 - Create a new .env file in the root of the project: touch .env
 - Update the package.json file with your project's name, version, and description
+- Run `npm run docs` to auto build docs (https://tsdoc.org/)
 
 ## Scripts
 
@@ -20,3 +21,5 @@ The following scripts are available:
 `npm run build` - Builds the project
 
 `npm run test`: - Runs unit tests for the project
+
+`npm run docs`: - Builds docs from doc comments

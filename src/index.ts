@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { greet } from '@utils/greeter';
 
-const message: string = greet('World');
+const message: String = greet('World');
 console.log(message);
 
 console.log('Environment Variables:');

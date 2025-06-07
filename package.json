@@ -9,22 +9,24 @@
   "scripts": {
     "start": "npm run build && node .",
     "build": "npx rollup -c",
-    "test": "npx jest --runInBand"
+    "test": "npx jest --runInBand",
+    "docs": "npx typedoc --out docs ./src/**/*.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
-    "@jest/globals": "^30.0.0-beta.3",
+    "@babel/types": "^7.27.6",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/jest": "^29.5.14",
-    "babel-jest": "^30.0.0-beta.3",
+    "babel-jest": "^29.7.0",
     "dotenv": "^16.5.0",
     "rollup": "^4.42.0",
     "ts-jest": "^29.3.4",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "typedoc": "^0.28.5"
   }
 }
