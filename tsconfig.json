@@ -26,7 +26,7 @@
     /* Modules */
     "module": "es6",
     // "rootDir": "./src",
-    // "moduleResolution": "esnext",
+    "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
