@@ -11,7 +11,7 @@
     "build": "npx rollup -c",
     "test": "npx jest --runInBand",
     "typecheck": "tsc --noEmit",
-    "docs": "npx typedoc --out docs ./src/**/*.ts"
+    "docs": "npx typedoc --out docs ./src/**/*.ts --name \"Typescript Template\""
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
