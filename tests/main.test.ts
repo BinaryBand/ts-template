@@ -1,9 +1,12 @@
-function sum(a: number, b: number): number {
-  return a + b;
-}
+import { greet } from '@/utils/greeter';
+import { constant } from '@public/constants.json';
 
-describe('sum module', () => {
-  test('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3);
+describe('test tests', () => {
+  test('test greeter', () => {
+    expect(greet('World')).toBe('Hello, World! Welcome to TypeScript with ESNext modules!');
+  });
+
+  test('test constant', () => {
+    expect(constant).toBe('0x00ff');
   });
 });

@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { greet } from '@utils/greeter';
+import { greet } from '@/utils/greeter';
 
 import { blake2b } from '@noble/hashes/blake2';
 
