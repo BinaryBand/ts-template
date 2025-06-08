@@ -1,4 +1,5 @@
 import json from '@rollup/plugin-json';
+import terser from '@rollup/plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
@@ -10,8 +11,10 @@ export default {
   plugins: [
     commonjs(),
     json(),
-    resolve({
-      preferBuiltins: true,
+    resolve({ preferBuiltins: true }),
+    terser({
+      compress: { drop_console: true },
+      format: { comments: false },
     }),
     typescript(),
     typescriptPaths(),
