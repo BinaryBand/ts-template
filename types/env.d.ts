@@ -1,1 +1,1 @@
-type String = string;
+type CustomString = string;
