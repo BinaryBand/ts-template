@@ -5,6 +5,8 @@
   "license": "MIT",
   "author": "Shane D",
   "main": "./dist/bundle.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "start": "npm run build && node .",
     "build": "npx rollup -c --bundleConfigAsCjs",
