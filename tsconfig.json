@@ -12,7 +12,7 @@
       "@public/*": ["./public/*"]
     },
     "rootDirs": ["./src", "./tests"],
-    "typeRoots": ["./node_modules/@types", "./types/**/*.d.ts"],
+    "typeRoots": ["./node_modules/@types", "./src/types/**/*.d.ts"],
     "resolveJsonModule": true,
 
     /* JavaScript Support */
