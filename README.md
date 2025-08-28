@@ -98,15 +98,86 @@ logger.debug('Debug information', { data: 'example' });
 
 ## Error Handling
 
-Use custom error classes for better error management:
+Use the strictly-typed error handling system with predefined error types and typed metadata:
 
 ```typescript
-import { AppError, createValidationError } from '@/errors/AppError';
+import { AppError } from '@/errors/AppError';
 
-// Create custom errors
-throw new AppError('Something went wrong', 'CUSTOM_ERROR', 500);
-throw createValidationError('Invalid input data');
+// Validation errors with typed metadata
+throw AppError.validation('Email is required', {
+  field: 'email',
+  constraint: 'required',
+});
+
+// Not found errors with required metadata
+throw AppError.notFound('User not found', {
+  resourceType: 'user',
+  resourceId: 123,
+});
+
+// Database errors with operation context
+throw AppError.database('Connection failed', {
+  operation: 'connect',
+  table: 'users',
+});
+
+// Authentication errors with context
+throw AppError.authentication('Token expired', {
+  authMethod: 'token',
+  reason: 'expired',
+});
+
+// Authorization errors with permission context
+throw AppError.authorization('Access denied', {
+  userId: '123',
+  resource: 'users',
+  action: 'delete',
+  requiredPermissions: ['admin'],
+});
+
+// External service errors with service details
+throw AppError.externalService('API call failed', {
+  serviceName: 'payment-api',
+  endpoint: '/charges',
+  statusCode: 500,
+});
+
+// Timeout errors with operation details
+throw AppError.timeout('Request timed out', {
+  operation: 'database-query',
+  timeoutMs: 5000,
+  elapsedMs: 5200,
+});
+
+// Custom errors with specific status codes
+throw AppError.custom('Business logic error', 'CUSTOM_CODE', 422);
+
+// Error checking with type safety
+const error = AppError.database('Connection failed', { operation: 'select' });
+if (error.isType('DATABASE_ERROR')) {
+  console.log('Database issue detected');
+  console.log('Operation:', error.metadata?.operation); // Type-safe metadata access
+}
+
+// Convert any error to AppError
+import { toAppError, isAppError } from '@/errors/AppError';
+const appError = toAppError(someUnknownError);
 ```
+
+**Available Error Types with Typed Metadata:**
+
+- `VALIDATION_ERROR` (400) - `{ field?, value?, constraint? }`
+- `NOT_FOUND` (404) - `{ resourceType, resourceId, searchParams? }`
+- `AUTHENTICATION_ERROR` (401) - `{ authMethod?, userId?, reason? }`
+- `AUTHORIZATION_ERROR` (403) - `{ userId, resource, action, requiredPermissions? }`
+- `CONFLICT` (409) - `{ resourceType, conflictingField, existingValue }`
+- `DATABASE_ERROR` (500) - `{ operation, table?, constraint? }`
+- `EXTERNAL_SERVICE_ERROR` (502) - `{ serviceName, endpoint?, statusCode?, responseTime? }`
+- `TIMEOUT_ERROR` (408) - `{ operation, timeoutMs, elapsedMs? }`
+- `CONFIGURATION_ERROR` (500) - `{ configKey, expectedType?, actualValue? }`
+- `RATE_LIMIT_EXCEEDED` (429) - `{ limit, windowMs, retryAfterMs? }`
+- `INTERNAL_SERVER_ERROR` (500) - No specific metadata
+- `SERVICE_UNAVAILABLE` (503) - No specific metadata
 
 ## Path Mapping
 

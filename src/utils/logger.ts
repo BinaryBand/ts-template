@@ -4,10 +4,10 @@ import { config } from '@/config';
  * Simple logging utility
  */
 export interface Logger {
-  info(message: string, data?: any): void;
+  info(message: string, meta?: Record<string, unknown>): void;
   error(message: string, error?: Error): void;
-  warn(message: string, data?: any): void;
-  debug(message: string, data?: any): void;
+  warn(message: string, meta?: Record<string, unknown>): void;
+  debug(message: string, meta?: Record<string, unknown>): void;
 }
 
 /**
@@ -21,9 +21,9 @@ class ConsoleLogger implements Logger {
     return messageLevelIndex <= currentLevelIndex;
   }
 
-  info(message: string, data?: any): void {
+  info(message: string, meta?: Record<string, unknown>): void {
     if (this.shouldLog('info')) {
-      console.log(`[INFO] ${message}`, data ? data : '');
+      console.log(`[INFO] ${message}`, meta ? meta : '');
     }
   }
 
@@ -33,15 +33,15 @@ class ConsoleLogger implements Logger {
     }
   }
 
-  warn(message: string, data?: any): void {
+  warn(message: string, meta?: Record<string, unknown>): void {
     if (this.shouldLog('warn')) {
-      console.warn(`[WARN] ${message}`, data ? data : '');
+      console.warn(`[WARN] ${message}`, meta ? meta : '');
     }
   }
 
-  debug(message: string, data?: any): void {
+  debug(message: string, meta?: Record<string, unknown>): void {
     if (this.shouldLog('debug')) {
-      console.log(`[DEBUG] ${message}`, data ? data : '');
+      console.log(`[DEBUG] ${message}`, meta ? meta : '');
     }
   }
 }

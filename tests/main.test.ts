@@ -1,6 +1,6 @@
 import { greet } from '@/utils/greeter';
 import { logger } from '@/utils/logger';
-import { AppError, createValidationError } from '@/errors/AppError';
+import { AppError } from '@/errors/AppError';
 import { config } from '@/config';
 import { constant } from '@public/constants.json';
 
@@ -18,11 +18,24 @@ describe('Template Tests', () => {
     expect(config.logLevel).toBeDefined();
   });
 
-  test('custom error class works', () => {
-    const error = createValidationError('Test error');
+  test('validation error works', () => {
+    const error = AppError.validation('Test error', { field: 'email', constraint: 'required' });
     expect(error).toBeInstanceOf(AppError);
     expect(error.code).toBe('VALIDATION_ERROR');
     expect(error.statusCode).toBe(400);
+    expect(error.metadata?.field).toBe('email');
+  });
+
+  test('not found error with metadata works', () => {
+    const error = AppError.notFound('User not found', { resourceType: 'user', resourceId: 123 });
+    expect(error.isType('NOT_FOUND')).toBe(true);
+    expect(error.metadata?.resourceId).toBe(123);
+  });
+
+  test('custom error with specific status code works', () => {
+    const error = AppError.custom('Custom error', 'CUSTOM_CODE', 418);
+    expect(error.code).toBe('CUSTOM_CODE');
+    expect(error.statusCode).toBe(418);
   });
 
   test('logger has required methods', () => {
