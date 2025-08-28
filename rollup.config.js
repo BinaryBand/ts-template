@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
+import { dts } from 'rollup-plugin-dts';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
