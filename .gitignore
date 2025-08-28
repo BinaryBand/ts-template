@@ -1,8 +1,10 @@
 dist
 node_modules
 package-lock.json
+.rollup.cache
 .vs
 .vscode
 .DS_Store
 .env
 docs
+tsconfig.tsbuildinfo
