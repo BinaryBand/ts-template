@@ -44,6 +44,7 @@ export { logger } from '@/utils/logger';
 export { greet } from '@/utils/greeter';
 export { config, isDevelopment, isProduction, isTest } from '@/config';
 export { AppError, ErrorCodes, isAppError, toAppError } from '@/errors/AppError';
+export { APP_CONSTANTS, EXAMPLE_HEX, APP_NAME, VERSION, DEFAULT_TIMEOUT } from '@/constants';
 
 // Run the application
 main();

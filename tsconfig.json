@@ -9,8 +9,7 @@
     "moduleResolution": "bundler",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@public/*": ["./public/*"]
+      "@/*": ["./src/*"]
     },
     "rootDirs": ["./src", "./tests"],
     "typeRoots": ["./node_modules/@types", "./src/types/**/*.d.ts"],

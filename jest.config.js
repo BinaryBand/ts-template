@@ -5,9 +5,9 @@ const jestConfig = {
   testEnvironment: 'node',
   moduleDirectories: ['node_modules', '<rootDir>'],
   transform: { ...createDefaultPreset().transform },
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: pathsToModuleNameMapper({
     '@/*': ['src/*'],
-    '@public/*': ['public/*'],
   }),
 };
 
