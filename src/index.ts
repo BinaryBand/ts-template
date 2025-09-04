@@ -3,7 +3,6 @@ import { greet } from '@/utils/greeter';
 import { logger } from '@/utils/logger';
 import { config, isDevelopment } from '@/config';
 import { AppError } from '@/errors/AppError';
-import { blake2b } from '@noble/hashes/blake2';
 
 /**
  * Main application entry point
@@ -24,9 +23,10 @@ async function main(): Promise<void> {
       logLevel: config.logLevel,
     });
 
-    // Example usage of crypto functionality
-    const hash = Buffer.from(blake2b('Hello, World!', { dkLen: 32 })).toString('hex');
-    logger.info('Hash generated', { hash });
+    // Example usage of built-in Node.js functionality
+    const timestamp = new Date().toISOString();
+    const randomId = Math.random().toString(36).substring(2, 15);
+    logger.info('Generated data', { timestamp, randomId });
 
     logger.info('Application started successfully');
   } catch (error) {
@@ -38,6 +38,12 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 }
+
+// Export utilities for external use
+export { logger } from '@/utils/logger';
+export { greet } from '@/utils/greeter';
+export { config, isDevelopment, isProduction, isTest } from '@/config';
+export { AppError, ErrorCodes, isAppError, toAppError } from '@/errors/AppError';
 
 // Run the application
 main();

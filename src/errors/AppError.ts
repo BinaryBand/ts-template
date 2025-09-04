@@ -11,29 +11,19 @@ import {
   RateLimitErrorMeta,
 } from '@/types/common';
 
+// Import error codes from external JSON file
+import errorCodesData from './error-codes.json';
+
 /**
  * Common error codes and their corresponding HTTP status codes
+ * Loaded from external JSON configuration
  */
-export const ErrorCodes = {
-  // Client errors (4xx)
-  VALIDATION_ERROR: { code: 'VALIDATION_ERROR', status: 400 },
-  AUTHENTICATION_ERROR: { code: 'AUTHENTICATION_ERROR', status: 401 },
-  AUTHORIZATION_ERROR: { code: 'AUTHORIZATION_ERROR', status: 403 },
-  NOT_FOUND: { code: 'NOT_FOUND', status: 404 },
-  CONFLICT: { code: 'CONFLICT', status: 409 },
-  RATE_LIMIT_EXCEEDED: { code: 'RATE_LIMIT_EXCEEDED', status: 429 },
-
-  // Server errors (5xx)
-  INTERNAL_SERVER_ERROR: { code: 'INTERNAL_SERVER_ERROR', status: 500 },
-  SERVICE_UNAVAILABLE: { code: 'SERVICE_UNAVAILABLE', status: 503 },
-  DATABASE_ERROR: { code: 'DATABASE_ERROR', status: 500 },
-  EXTERNAL_SERVICE_ERROR: { code: 'EXTERNAL_SERVICE_ERROR', status: 502 },
-
-  // Custom application errors
-  CONFIGURATION_ERROR: { code: 'CONFIGURATION_ERROR', status: 500 },
-  TIMEOUT_ERROR: { code: 'TIMEOUT_ERROR', status: 408 },
-  UNKNOWN: { code: 'UNKNOWN', status: 500 },
-} as const;
+export const ErrorCodes = errorCodesData as {
+  readonly [K in keyof typeof errorCodesData]: {
+    readonly code: K;
+    readonly status: number;
+  };
+};
 
 export type ErrorCode = keyof typeof ErrorCodes;
 

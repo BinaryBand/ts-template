@@ -40,6 +40,6 @@
     "typedoc": "^0.28.5"
   },
   "dependencies": {
-    "@noble/hashes": "^1.8.0"
+    "consola": "^3.4.2"
   }
 }

@@ -1,7 +1,8 @@
+import { createConsola } from 'consola';
 import { config } from '@/config';
 
 /**
- * Simple logging utility
+ * Logger interface for type consistency
  */
 export interface Logger {
   info(message: string, meta?: Record<string, unknown>): void;
@@ -11,40 +12,59 @@ export interface Logger {
 }
 
 /**
- * Basic console logger implementation
+ * Consola-based logger with configurable log level
  */
-class ConsoleLogger implements Logger {
-  private shouldLog(level: string): boolean {
-    const levels = ['error', 'warn', 'info', 'debug'];
-    const currentLevelIndex = levels.indexOf(config.logLevel);
-    const messageLevelIndex = levels.indexOf(level);
-    return messageLevelIndex <= currentLevelIndex;
+class ConsolaLogger implements Logger {
+  private consola = createConsola({
+    level: this.getLogLevel(),
+    formatOptions: {
+      colors: true,
+      compact: false,
+    },
+  });
+
+  private getLogLevel(): number {
+    const levelMap = {
+      error: 0,
+      warn: 1,
+      info: 2,
+      debug: 3,
+    };
+    return levelMap[config.logLevel] ?? 2;
   }
 
   info(message: string, meta?: Record<string, unknown>): void {
-    if (this.shouldLog('info')) {
-      console.log(`[INFO] ${message}`, meta ? meta : '');
+    if (meta) {
+      this.consola.info(message, meta);
+    } else {
+      this.consola.info(message);
     }
   }
 
   error(message: string, error?: Error): void {
-    if (this.shouldLog('error')) {
-      console.error(`[ERROR] ${message}`, error || '');
+    if (error) {
+      this.consola.error(message, error);
+    } else {
+      this.consola.error(message);
     }
   }
 
   warn(message: string, meta?: Record<string, unknown>): void {
-    if (this.shouldLog('warn')) {
-      console.warn(`[WARN] ${message}`, meta ? meta : '');
+    if (meta) {
+      this.consola.warn(message, meta);
+    } else {
+      this.consola.warn(message);
     }
   }
 
   debug(message: string, meta?: Record<string, unknown>): void {
-    if (this.shouldLog('debug')) {
-      console.log(`[DEBUG] ${message}`, meta ? meta : '');
+    if (meta) {
+      this.consola.debug(message, meta);
+    } else {
+      this.consola.debug(message);
     }
   }
 }
 
 // Export a single logger instance
-export const logger = new ConsoleLogger();
+export const logger = new ConsolaLogger();

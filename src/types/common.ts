@@ -2,7 +2,10 @@
  * Common type definitions for the application
  */
 
-export type Result<T, E = Error> = { success: true; data: T } | { success: false; error: E };
+import type { Result } from './utils';
+
+// Re-export commonly used utility types
+export type { Result };
 
 export type ConfigValue = string | number | boolean;
 
@@ -82,6 +85,3 @@ export interface RateLimitErrorMeta {
   windowMs: number;
   retryAfterMs?: number;
 }
-
-// Legacy type alias - can be removed if not needed
-export type CustomString = string;

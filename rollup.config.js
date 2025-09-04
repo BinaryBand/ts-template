@@ -15,7 +15,7 @@ export default [
       {
         file: 'dist/bundle.js',
         format: 'cjs',
-        sourcemap: isDevelopment,
+        sourcemap: true,
       },
     ],
     plugins: [
@@ -28,7 +28,12 @@ export default [
           compress: { drop_console: !isDevelopment },
           format: { comments: false },
         }),
-      typescript(),
+      typescript({
+        declaration: false,
+        declarationMap: false,
+        outDir: 'dist',
+        sourceMap: true,
+      }),
       typescriptPaths(),
     ].filter(Boolean),
     external: [
@@ -42,6 +47,15 @@ export default [
   {
     input: 'src/index.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
-    plugins: [dts(), typescript(), typescriptPaths()],
+    plugins: [
+      dts({
+        compilerOptions: {
+          baseUrl: './src',
+          paths: {
+            '@/*': ['*'],
+          },
+        },
+      }),
+    ],
   },
 ];
